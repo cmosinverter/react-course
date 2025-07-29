@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    
+    <!-- React external library -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+
+    <!-- Dayjs -->
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <!-- Javascript compiler: JSX -> JS -->
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+
+      function App() {
+
+        const [inputText, setInputText] = React.useState('');
+
+
+        function saveInputText(event) {
+            setInputText(event.target.value);
+            console.log(event.target.value);
+        };
+
+        function clearInputText() {
+            setInputText('');
+        };
+
+        function setExampleInputText() {
+            setInputText('Alice');
+        }
+
+        return (
+            <>
+                <input 
+                    onChange={saveInputText}
+                    value={inputText}
+                />
+                <button onClick={clearInputText}>Reset</button>
+                <button onClick={setExampleInputText}>Example</button>
+                <p>Hello {inputText}</p>
+            </>
+        );
+
+      };
+
+      const container = document.querySelector('.js-container');
+      const root = ReactDOM.createRoot(container)
+      root.render(<App />);
+
+    </script>
+  </body>
+</html>

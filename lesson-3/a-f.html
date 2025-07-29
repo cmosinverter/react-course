@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    
+    <!-- React external library -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+
+    <!-- Dayjs -->
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <!-- Javascript compiler: JSX -> JS -->
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+      function Counter({count, setCount}) {
+
+          function increment() {
+              setCount(count + 1);
+          };
+
+          const buttonTextTime = count === 1 ? 'time' : 'times';
+
+          return (
+              <>
+                  <button onClick={increment}>Click {count} {buttonTextTime}</button>
+              </>
+          );
+
+      }
+
+      function Reset({count, setCount}) {
+
+        function reset() {
+          setCount(0);
+        };
+
+        return (
+          <>
+            <button onClick={reset}>Reset</button>
+          </>
+        )
+
+      }
+
+      function App() {
+
+        const [count, setCount] = React.useState(0);
+
+        return (
+          <>
+            <Counter 
+              count={count}
+              setCount={setCount}
+            />
+            <Counter
+              count={count}
+              setCount={setCount}
+            />
+            <Reset
+              count={count}
+              setCount={setCount}
+            />
+          </>
+        )
+      };
+
+      const container = document.querySelector('.js-container');
+      const root = ReactDOM.createRoot(container)
+      root.render(<App />);
+
+    </script>
+  </body>
+</html>
