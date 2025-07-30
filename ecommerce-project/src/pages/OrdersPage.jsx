@@ -5,7 +5,7 @@ export function OrdersPage() {
     return (
         <>
             <Header />
-
+            <link rel="icon" type="image/svg+xml" href="/orders-favicon.png" />
             <div className="orders-page">
                 <div className="page-title">Your Orders</div>
 
