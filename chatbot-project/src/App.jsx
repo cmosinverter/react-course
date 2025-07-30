@@ -13,32 +13,44 @@ function App() {
     })
   }, []);
 
-  const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem('chatMessages')) || [{
-    message: "hello chatbot",
-    sender: "user",
-    time: 1736127288920,
-    id: "id1"
-  }, {
-    message: "how can i ,help you",
-    sender: "robot",
-    time: 1736127291230,
-    id: "id2"
-  }, {
-    message: "i need help with my homework",
-    sender: "user",
-    time: 1736127292230,
-    id: "id3"
-  }, {
-    message: "sure, what subject?",
-    sender: "robot",
-    time: 1736127292240,
-    id: "id4"
-  }]);
+  console.log(JSON.parse(localStorage.getItem('chatMessages')))
+
+  const [chatMessages, setChatMessages] = useState(() => {
+    const saved = localStorage.getItem('chatMessages');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+    return [{
+      message: "hello chatbot",
+      sender: "user",
+      time: 1736127288920,
+      id: "id1"
+    }, {
+      message: "how can i help you",
+      sender: "robot",
+      time: 1736127291230,
+      id: "id2"
+    }, {
+      message: "i need help with my homework",
+      sender: "user",
+      time: 1736127292230,
+      id: "id3"
+    }, {
+      message: "sure, what subject?",
+      sender: "robot",
+      time: 1736127292240,
+      id: "id4"
+    }];
+  });
 
   useEffect(() => {
     localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
   }, [chatMessages])
 
+  
   return (
     <div className="app-container">
       
