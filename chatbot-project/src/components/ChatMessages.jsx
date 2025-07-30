@@ -12,6 +12,8 @@ function ChatMessages({chatMessages}) {
 
   }, [chatMessages]);
 
+  console.log("ChatMessages", chatMessages);
+
   return (
     <div className="chat-messages-contaner" ref={chatMessagesRef}>
       {chatMessages.map((message) => {
@@ -19,6 +21,7 @@ function ChatMessages({chatMessages}) {
           <ChatMessage 
             message={message.message} 
             sender={message.sender}
+            time={message.time}
             key={message.id}
           />
         );
