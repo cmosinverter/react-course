@@ -9,6 +9,17 @@
   margin-left: 10px;
 }
 
+.clear-button {
+  background-color: rgb(217, 217, 217);
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 15px 20px;
+  font-size: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 .app-container {
   max-width: 600px;
   margin-right: auto;

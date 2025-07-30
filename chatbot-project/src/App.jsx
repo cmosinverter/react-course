@@ -13,7 +13,7 @@ function App() {
     })
   }, []);
 
-  const [chatMessages, setChatMessages] = useState([{
+  const [chatMessages, setChatMessages] = useState(JSON.parse(localStorage.getItem('chatMessages')) || [{
     message: "hello chatbot",
     sender: "user",
     time: 1736127288920,
@@ -34,6 +34,10 @@ function App() {
     time: 1736127292240,
     id: "id4"
   }]);
+
+  useEffect(() => {
+    localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+  }, [chatMessages])
 
   return (
     <div className="app-container">
