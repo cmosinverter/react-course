@@ -1,39 +1,38 @@
-
 /*======================
     404 page
 =======================*/
 
-
-.page_404{
-    padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+.notfound-page {
+    margin-top: 60px; /* Same height as your header */
+    text-align: center;
 }
 
-.page_404 img{
-    width:100%;
+.four-o-four {
+    padding-top: 20px;
+    font-size: 100px;
 }
 
-.four_zero_four_bg{
-    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-    height: 400px;
-    background-position: center;
- }
- 
- 
-.four_zero_four_bg h1{
-    font-size:80px;
+.four-o-four-bg {
+    object-fit: cover;
+    object-position: center 40%;
+    width: 800px;
+    max-width: 100%;
+    height: 350px;
 }
 
-.four_zero_four_bg h3{
-    font-size:80px;
+.lost-message {
+    font-size: 20px;
+    margin-top: 10px;
 }
-            
-.link_404{			 
-    color: #fff!important;
-    padding: 10px 20px;
-    background: #39ac31;
-    margin: 20px 0;
-    display: inline-block;
-}
-.contant_box_404{
-    margin-top:-50px;
+
+.back-home-link {
+    display: inline-block; /* or display: block; */
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white;
+    background-color: #04AA6D; /* Green */
+    border: none;
+    text-decoration: none;
+    padding: 10px 20px; /* Add some padding to make it look like a button */
 }
