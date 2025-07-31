@@ -1,0 +1,3 @@
+[submodule "ecommerce-backend-ai"]
+	path = ecommerce-backend-ai
+	url = https://github.com/SuperSimpleDev/ecommerce-backend-ai.git
