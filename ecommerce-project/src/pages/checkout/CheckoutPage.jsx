@@ -1,7 +1,21 @@
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import dayjs from 'dayjs'
 import { CheckoutHeader } from './CheckoutHeader';
 import './CheckoutPage.css'
 import { formatMoney } from '../../utils/money.js'
 export function CheckoutPage({ cart }) {
+
+    const [deliveryOptions, setDeliveryOptions] = useState([])
+
+    useEffect(() => {
+        
+        axios.get('api/delivery-options')
+            .then((response) => {
+                setDeliveryOptions(response.data);
+            })
+    }, [])
+
     return (
         <>
             <title>Checkout</title>
