@@ -1,10 +1,10 @@
 import { Header } from '../components/Header.jsx';
 import { Link } from 'react-router';
 import './NotFoundPage.css';
-export function NotFoundPage() {
+export function NotFoundPage( {cart} ) {
     return (
         <>
-            <Header />
+            <Header cart={cart}/>
             <div className="notfound-page">
                 <div className="four-o-four">404</div>
                 <img className="four-o-four-bg" src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif" />
