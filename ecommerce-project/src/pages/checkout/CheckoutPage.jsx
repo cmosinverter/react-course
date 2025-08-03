@@ -12,19 +12,19 @@ export function CheckoutPage({ cart }) {
 
 
     useEffect(() => {
-
-        axios.get('api/delivery-options?expand=estimatedDeliveryTime')
-            .then((response) => {
-                setDeliveryOptions(response.data);
-            })
+        const fetchDeliveryOptions = async () => {
+            const response = await axios.get('api/delivery-options?expand=estimatedDeliveryTime');
+            setDeliveryOptions(response.data);
+        };
+        fetchDeliveryOptions();
     }, [])
 
     useEffect(() => {
-
-        axios.get('api/payment-summary')
-            .then((response) => {
-                setPaymentSummary(response.data);
-            })
+        const fetchPaymentSummary = async () => {
+            const response = await axios.get('api/payment-summary');
+            setPaymentSummary(response.data);
+        };
+        fetchPaymentSummary();
     }, [cart])
 
     return (
