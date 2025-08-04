@@ -13,7 +13,7 @@ export function DeliveryOptions( {deliveryOptions, cartItem, loadCart} ) {
                     await axios.put(`/api/cart-items/${cartItem.productId}`, {
                         deliveryOptionId: deliveryOption.id
                     })
-                    loadCart()
+                    await loadCart();
                 }
                 return (
                     <div key={deliveryOption.id} className="delivery-option"
