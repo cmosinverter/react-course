@@ -1,4 +1,4 @@
-import { it, expect, describe, vi } from 'vitest';
+import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { Product } from './Product.jsx';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
@@ -7,8 +7,13 @@ import axios from 'axios';
 vi.mock('axios');
 
 describe('Product Component', () => {
-    it('displays the product details correctly', () => {
-        const product = {
+
+    let product; 
+    let loadCart;
+
+    // test hook
+    beforeEach(() => {
+        product = {
             "keywords": [
                 "socks",
                 "sports",
@@ -25,7 +30,11 @@ describe('Product Component', () => {
             "createdAt": "2025-08-03T12:06:42.085Z",
             "updatedAt": "2025-08-03T12:06:42.085Z"
         }
-        const loadCart = vi.fn();
+        loadCart = vi.fn();
+    });
+
+    it('displays the product details correctly', () => {
+
         render(<Product product={product} loadCart={loadCart} />);
 
         expect(
@@ -49,25 +58,8 @@ describe('Product Component', () => {
         ).toBeInTheDocument();
     });
 
-    it('adds a product to the cart', async() => {
-        const product = {
-            "keywords": [
-                "socks",
-                "sports",
-                "apparel"
-            ],
-            "id": "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-            "image": "/images/products/athletic-cotton-socks-6-pairs.jpg",
-            "name": "Black and Gray Athletic Cotton Socks - 6 Pairs",
-            "rating": {
-                "stars": 4.5,
-                "count": 87
-            },
-            "priceCents": 1090,
-            "createdAt": "2025-08-03T12:06:42.085Z",
-            "updatedAt": "2025-08-03T12:06:42.085Z"
-        }
-        const loadCart = vi.fn();
+    it('adds a product to the cart', async () => {
+
         render(<Product product={product} loadCart={loadCart} />);
 
         const user = userEvent.setup();
