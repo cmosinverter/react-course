@@ -1,13 +1,32 @@
-import { Fragment } from "react";
+import { useState, Fragment } from "react";
 import { formatMoney } from "../../utils/money";
 import axios from "axios";
 
-export function CartItemDetails( {cartItem, loadCart} ) {
+export function CartItemDetails({ cartItem, loadCart }) {
 
-    const deleteCartItem = async() => {
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [quantity, setQuantity] = useState(cartItem.quantity);
+
+    const updateQuantity = async() => {
+
+        if (isUpdating) {
+            await axios.put(`/api/cart-items/${cartItem.productId}`, {
+                quantity: Number(quantity)
+            });
+            await loadCart();
+        };
+
+        setIsUpdating(isUpdating ? false : true);
+    };
+
+    const getQuantityInput = (event) => {
+        setQuantity(event.target.value);
+    };
+
+    const deleteCartItem = async () => {
         await axios.delete(`/api/cart-items/${cartItem.productId}`);
         await loadCart();
-    }
+    };
 
     return (
         <Fragment>
@@ -23,9 +42,15 @@ export function CartItemDetails( {cartItem, loadCart} ) {
                 </div>
                 <div className="product-quantity">
                     <span>
-                        Quantity: <span className="quantity-label">{cartItem.quantity}</span>
+                        Quantity: {isUpdating ? (
+                            <input className="update-quantity-input" type="text" value={quantity}
+                                onChange={getQuantityInput} />
+                        ) : (
+                            <span className="quantity-label">{cartItem.quantity}</span>
+                        )}
                     </span>
-                    <span className="update-quantity-link link-primary">
+                    <span className="update-quantity-link link-primary"
+                        onClick={updateQuantity}>
                         Update
                     </span>
                     <span className="delete-quantity-link link-primary"
