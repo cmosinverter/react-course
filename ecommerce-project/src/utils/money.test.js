@@ -43,4 +43,10 @@ describe('formatMoney', () => {
         expect(formatMoney(10)).toBe('$0.10');
         expect(formatMoney(101)).toBe('$1.01');
     });
+
+    it(('handles negative numbers correctly', () => {
+        expect(formatMoney(-999)).toBe('-$9.99');
+        expect(formatMoney(-100)).toBe('-$1.00');
+    }))
+
 });

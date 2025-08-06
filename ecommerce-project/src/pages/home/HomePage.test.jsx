@@ -1,7 +1,7 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { HomePage } from './HomePage.jsx';
-import userEvent from '@testing-library/user-event';
-import { render, screen, within } from '@testing-library/react';
+import  userEvent  from '@testing-library/user-event';
+import { getByTestId, render, screen, within } from '@testing-library/react';
 import axios from 'axios';
 import { MemoryRouter } from 'react-router';
 
@@ -10,8 +10,12 @@ vi.mock('axios');
 describe('HomePage component', () => {
 
     let loadCart;
+    let user;
 
     beforeEach(() => {
+
+        user = userEvent.setup();
+
         loadCart = vi.fn();
         axios.get.mockImplementation(async (urlPath) => {
             if (urlPath === '/api/products') {
@@ -70,4 +74,38 @@ describe('HomePage component', () => {
         ).toBeInTheDocument()
 
     })
+
+
+    it('test the add to cart button', async () => {
+        render(<MemoryRouter>
+                    <HomePage cart={[]} loadCart={loadCart} />
+                </MemoryRouter>)
+        const productContainers = await screen.findAllByTestId('product-container');
+        let addToCartButton = within(productContainers[0]).getByTestId("add-to-cart-button");
+        let quantitySelecter = within(productContainers[0]).getByTestId("product-quantity-selector");
+        await user.selectOptions(quantitySelecter, '2');
+        await user.click(addToCartButton);
+        addToCartButton = within(productContainers[1]).getByTestId("add-to-cart-button");
+        quantitySelecter = within(productContainers[1]).getByTestId("product-quantity-selector");
+        await user.selectOptions(quantitySelecter, '3');
+        await user.click(addToCartButton);
+
+        expect(axios.post).toHaveBeenNthCalledWith(1, 
+            '/api/cart-items',
+            {
+                productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                quantity: 2
+            }
+        )
+
+        expect(axios.post).toHaveBeenNthCalledWith(2, 
+            '/api/cart-items',
+            {
+                productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+                quantity: 3
+            }
+        )
+
+    })
+
 });

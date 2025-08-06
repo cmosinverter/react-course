@@ -10,6 +10,7 @@ describe('Product Component', () => {
 
     let product; 
     let loadCart;
+    let user;
 
     // test hook
     beforeEach(() => {
@@ -31,6 +32,7 @@ describe('Product Component', () => {
             "updatedAt": "2025-08-03T12:06:42.085Z"
         }
         loadCart = vi.fn();
+        user = userEvent.setup();
     });
 
     it('displays the product details correctly', () => {
@@ -62,7 +64,6 @@ describe('Product Component', () => {
 
         render(<Product product={product} loadCart={loadCart} />);
 
-        const user = userEvent.setup();
         const addToCartButton = screen.getByTestId('add-to-cart-button');
         await user.click(addToCartButton);
 
@@ -77,4 +78,22 @@ describe('Product Component', () => {
         expect(loadCart).toHaveBeenCalled();
 
     });
+
+    it('select a quantity correctly', async () => {
+        render(<Product product={product} loadCart={loadCart} />);
+        const quantitySelector = screen.getByTestId('product-quantity-selector');
+        const addToCartButton = screen.getByTestId('add-to-cart-button');
+        await user.selectOptions(quantitySelector, '3');
+        expect(quantitySelector).toHaveValue('3');
+        await user.click(addToCartButton);
+        expect(axios.post).toHaveBeenCalledWith(
+            '/api/cart-items',
+            {
+                productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+                quantity: 3
+            }
+        );
+        expect(loadCart).toHaveBeenCalled();
+
+    })
 })
